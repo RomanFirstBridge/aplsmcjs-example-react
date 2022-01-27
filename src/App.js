@@ -38,6 +38,7 @@ function App() {
         },
         onContractConnectionClose: () => {
           setContractMap(({[contractName]: removed, ...state}) => state);
+          setActiveContract(null);
         }
       },
     );
