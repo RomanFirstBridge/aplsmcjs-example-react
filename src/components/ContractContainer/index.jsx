@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box';
 import { EventForm } from './event-form';
 import { EventsTable } from './EventsTable';
 import { TableSubscription } from './TableSubscription';
+import { HistoricalData } from './HistoricalData';
 
 export const ContractContainer = ({ contractName, contractInstance, activeContract }) => {
   const [eventSubscription, setEventSubscription] = useState({});
@@ -22,14 +23,12 @@ export const ContractContainer = ({ contractName, contractInstance, activeContra
         }
       },
       ({ subscriptionId, err }) => {
-        console.log("🚀 ~ file: index.jsx ~ line 24 ~ handleAddEvent ~ subscriptionId, err", subscriptionId, err)
         if(err) {
           console.log('Event reconntection error!');
           setEventSubscription(( {[event.name]: removed , ...state} ) => state);
           return;
         }
         setEventSubscription((state) => {
-          console.log("🚀 ~ file: index.jsx ~ line 32 ~ setEventSubscription ~ state", state)
           return ({
             ...state,
             [event.name]: {
@@ -53,10 +52,8 @@ export const ContractContainer = ({ contractName, contractInstance, activeContra
 
   const handleUnsubscribeEvent = (event) => () => {
     contractInstance.removeEvent(event, (err, data) => {
-      console.log("🚀 ~ file: index.jsx ~ line 53 ~ contractInstance.removeEvent ~ err, data", err, data)
       if(!err) {
         setEventSubscription(( {[event.name]: removed , ...state} ) => {
-          console.log("🚀 ~ file: index.jsx ~ line 62 ~ setEventSubscription ~ removed", removed)
           return state
         });
       }
@@ -76,6 +73,7 @@ export const ContractContainer = ({ contractName, contractInstance, activeContra
         onUnsubscribe={handleUnsubscribeEvent}
       />
       <EventsTable dataList={eventList} />
+      <HistoricalData contractInstance={contractInstance} />
     </Box>
   );
 }

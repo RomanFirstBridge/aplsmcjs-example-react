@@ -86,6 +86,7 @@ export const EventForm = ({ contractName, onAddEvent }) => {
           <Box margin={3}>
             <TextField
               disabled
+              fullWidth
               label="Signature"
               variant="outlined"
               type="text"
@@ -95,6 +96,7 @@ export const EventForm = ({ contractName, onAddEvent }) => {
           </Box>
           <Box margin={3}>
             <TextField
+              fullWidth
               label="From block"
               variant="outlined"
               type="text"
